@@ -7,7 +7,11 @@ from openpyxl.styles import Font, PatternFill
 from openpyxl.worksheet.table import Table, TableStyleInfo
 
 
-OUTPUT_FILE = Path(__file__).resolve().parent / "Permission_Based_Company_Contacts.xlsx"
+OUTPUT_FILE = (
+    Path(__file__).resolve().parent.parent
+    / "output"
+    / "Permission_Based_Company_Contacts.xlsx"
+)
 HEADERS = (
     "Company email",
     "Company name",
@@ -29,7 +33,7 @@ def main():
         cell.font = Font(bold=True, color="FFFFFF")
         cell.fill = PatternFill("solid", fgColor="0078D4")
 
-    table = Table(displayName="PermissionBasedContacts", ref="A1:F10001")
+    table = Table(displayName="PermissionBasedContacts", ref="A1:F50001")
     table.tableStyleInfo = TableStyleInfo(
         name="TableStyleMedium2",
         showFirstColumn=False,
@@ -54,10 +58,10 @@ def main():
     notes.append(["Use this workbook for company contacts collected with permission."])
     notes.append(["Only import addresses you are authorized to use for outreach."])
     notes.append(["Keep the source and permission / opt-in evidence for each address."])
-    notes.append(["Rows are prepared for up to 10,000 records; the workbook contains no harvested addresses."])
+    notes.append(["Rows are prepared for up to 50,000 records; the workbook contains no harvested addresses."])
 
     workbook.save(OUTPUT_FILE)
-    print(f"Created {OUTPUT_FILE} with capacity for 10,000 permission-based contacts.")
+    print(f"Created {OUTPUT_FILE} with capacity for 50,000 permission-based contacts.")
 
 
 if __name__ == "__main__":
